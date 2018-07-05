@@ -22,7 +22,6 @@ ELSE()
     "master"
     )
 
-
   SET (PLUS_FLATBUFFERS_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/flatbuffers")
   SET (PLUS_FLATBUFFERS_BIN_DIR "${CMAKE_BINARY_DIR}/Deps/flatbuffers-bin" CACHE INTERNAL "Path to store Flatbuffers binaries")
   SET (PLUS_FLATBUFFERS_DIR "${CMAKE_BINARY_DIR}/Deps/flatbuffers-install" CACHE INTERNAL "Path to store Flatbuffers installation")
@@ -105,5 +104,5 @@ ELSE()
     #--Dependences------------------
     DEPENDS Flatbuffers libzmq
     )  
-  set(simple_DIR ${PLUS_SIMPLE_DIR})
+  set(PLUS_SIMPLE_DIR "${PLUS_SIMPLE_DIR}/lib/cmake/simple" INTERNAL "SIMPLE directory to be used by subprojects")
 ENDIF()
