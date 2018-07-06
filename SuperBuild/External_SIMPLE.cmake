@@ -54,8 +54,9 @@ ELSE()
     BUILD_ALWAYS 1
     #--Install step-----------------
     INSTALL_DIR=${PLUS_FLATBUFFERS_DIR}
-    )
-
+    )	
+  set(PLUS_FLATBUFFERS_DIR "${PLUS_FLATBUFFERS_DIR}/lib/cmake/flatbuffers" INTERNAL "flatbuffers directory to be used by subprojects")
+	
   ExternalProject_Add( libzmq
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
     PREFIX "${CMAKE_BINARY_DIR}/Deps/libzmq-prefix"
@@ -77,6 +78,8 @@ ELSE()
     #--Install step-----------------
     INSTALL_DIR=${PLUS_LIBZMQ_DIR}
     )
+  set(PLUS_LIBZMQ_DIR "${PLUS_LIBZMQ_DIR}/CMake" INTERNAL "libzmq directory to be used by subprojects")
+
 
   ExternalProject_Add( simple
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
