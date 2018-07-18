@@ -660,6 +660,11 @@ IF(PLUSBUILD_USE_OpenIGTLink AND NOT OpenIGTLink_DIR)
   LIST(APPEND PlusLib_DEPENDENCIES OpenIGTLinkIO)
 ENDIF()
 
+IF(PLUSBUILD_USE_SIMPLE)
+  # OpenIGTLink_DIR is not supplied, so it is built inside Plus, therefore we need to specify dependencies to make sure it is built early enough
+  LIST(APPEND PlusLib_DEPENDENCIES simple)
+ENDIF()
+
 IF(PLUS_USE_BKPROFOCUS_CAMERALINK)
   SET(GrabbieLib_DEPENDENCIES)
   LIST(APPEND PlusLib_DEPENDENCIES GrabbieLib)

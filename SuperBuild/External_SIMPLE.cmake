@@ -22,7 +22,6 @@ ELSE()
     "master"
     )
 
-
   SET (PLUS_FLATBUFFERS_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/flatbuffers")
   SET (PLUS_FLATBUFFERS_BIN_DIR "${CMAKE_BINARY_DIR}/Deps/flatbuffers-bin" CACHE INTERNAL "Path to store Flatbuffers binaries")
   SET (PLUS_FLATBUFFERS_DIR "${CMAKE_BINARY_DIR}/Deps/flatbuffers-install" CACHE INTERNAL "Path to store Flatbuffers installation")
@@ -55,8 +54,9 @@ ELSE()
     BUILD_ALWAYS 1
     #--Install step-----------------
     INSTALL_DIR=${PLUS_FLATBUFFERS_DIR}
-    )
-
+    )	
+  set(PLUS_FLATBUFFERS_DIR "${PLUS_FLATBUFFERS_DIR}/lib/cmake/flatbuffers" INTERNAL "flatbuffers directory to be used by subprojects")
+	
   ExternalProject_Add( libzmq
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
     PREFIX "${CMAKE_BINARY_DIR}/Deps/libzmq-prefix"
@@ -79,6 +79,8 @@ ELSE()
     #--Install step-----------------
     INSTALL_DIR=${PLUS_LIBZMQ_DIR}
     )
+  set(PLUS_LIBZMQ_DIR "${PLUS_LIBZMQ_DIR}/CMake" INTERNAL "libzmq directory to be used by subprojects")
+
 
   ExternalProject_Add( simple
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
@@ -106,5 +108,5 @@ ELSE()
     #--Dependences------------------
     DEPENDS Flatbuffers libzmq
     )  
-  set(simple_DIR ${PLUS_SIMPLE_DIR})
+  set(PLUS_SIMPLE_DIR "${PLUS_SIMPLE_DIR}/lib/cmake/simple" INTERNAL "SIMPLE directory to be used by subprojects")
 ENDIF()
