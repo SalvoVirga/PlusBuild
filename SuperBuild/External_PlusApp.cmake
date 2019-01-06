@@ -12,7 +12,7 @@ IF(NOT DEFINED(PLUSAPP_GIT_REPOSITORY))
   SET(PLUSAPP_GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/SalvoVirga/PlusApp.git" CACHE STRING "Set PlusApp desired git url")
 ENDIF()
 IF(NOT DEFINED(PLUSAPP_GIT_REVISION))
-  SET(PLUSAPP_GIT_REVISION "master" CACHE STRING "Set PlusApp desired git hash (master means latest)")
+  SET(PLUSAPP_GIT_REVISION "feature/SIMPLE" CACHE STRING "Set PlusApp desired git hash (master means latest)")
 ENDIF()
 
 IF(PLUSBUILD_DOCUMENTATION)
