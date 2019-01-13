@@ -107,5 +107,5 @@ ELSE()
     #--Dependences------------------
     DEPENDS Flatbuffers libzmq
     )  
-  set(PLUS_SIMPLE_DIR "${PLUS_SIMPLE_DIR}/lib/cmake/simple" INTERNAL "SIMPLE directory to be used by subprojects")
+  set(PLUS_SIMPLE_CMAKE_DIR "${PLUS_SIMPLE_DIR}/lib/cmake/simple" INTERNAL "SIMPLE directory to be used by subprojects")
 ENDIF()

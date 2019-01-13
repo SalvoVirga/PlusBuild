@@ -280,7 +280,7 @@ ENDIF()
 SET(PLUSBUILD_VTK_RENDERING_BACKEND "OpenGL2" CACHE STRING "Choose the rendering backend. OpenGL2 is only compatible with more recent graphics cards and does not work on embedded systems like Ultrasonix Windows XPe based systems.")
 set_property(CACHE PLUSBUILD_VTK_RENDERING_BACKEND PROPERTY STRINGS "OpenGL" "OpenGL2")
 
-OPTION(PLUSAPP_TEST_GUI "Enable GUI tests" ON)
+OPTION(PLUSAPP_TEST_GUI "Enable GUI tests" OFF)
 
 OPTION(PLUS_TEST_HIGH_ACCURACY_TIMING "Enable testing of high-accuracy timing. High-accuracy timing may not be available on virtual machines and so testing may be turned off to avoid false alarams." ON)
 MARK_AS_ADVANCED(PLUS_TEST_HIGH_ACCURACY_TIMING)
