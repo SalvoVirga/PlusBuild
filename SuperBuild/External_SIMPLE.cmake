@@ -55,7 +55,7 @@ ELSE()
     #--Install step-----------------
     INSTALL_DIR=${PLUS_FLATBUFFERS_DIR}
     )	
-  set(PLUS_FLATBUFFERS_DIR "${PLUS_FLATBUFFERS_DIR}/lib/cmake/flatbuffers" INTERNAL "flatbuffers directory to be used by subprojects")
+  set(PLUS_FLATBUFFERS_CMAKE_DIR "${PLUS_FLATBUFFERS_DIR}/lib/cmake/flatbuffers" INTERNAL "flatbuffers directory to be used by subprojects")
 	
   ExternalProject_Add( libzmq
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
@@ -79,7 +79,7 @@ ELSE()
     #--Install step-----------------
     INSTALL_DIR=${PLUS_LIBZMQ_DIR}
     )
-  set(PLUS_LIBZMQ_DIR "${PLUS_LIBZMQ_DIR}/CMake" INTERNAL "libzmq directory to be used by subprojects")
+  set(PLUS_LIBZMQ_CMAKE_DIR "${PLUS_LIBZMQ_DIR}/share/cmake/ZeroMQ" INTERNAL "libzmq directory to be used by subprojects")
 
 
   ExternalProject_Add( simple
@@ -95,10 +95,9 @@ ELSE()
       -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:PATH=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
       -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:PATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
       -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:PATH=${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}
-      -DBUILD_EXAMPLES:BOOL=OFF
-      -DBUILD_TESTS:BOOL=OFF
-      -DZeroMQ_DIR=${PLUS_LIBZMQ_DIR}
-      -DFlatbuffers_DIR=${PLUS_FLATBUFFERS_DIR}
+      -DZeroMQ_DIR=${PLUS_LIBZMQ_CMAKE_DIR}
+      -DFlatbuffers_DIR=${PLUS_FLATBUFFERS_CMAKE_DIR}
+      -DFLATBUFFERS_FLATC_EXECUTABLE=${PLUS_FLATBUFFERS_DIR}/bin/flatc
       -DCMAKE_BUILD_TYPE=Release
       -DCMAKE_INSTALL_PREFIX=${PLUS_SIMPLE_DIR}
     #--Build step-----------------
