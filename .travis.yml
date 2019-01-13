@@ -1,0 +1,57 @@
+language: cpp
+sudo: true
+
+matrix:
+  include:
+
+    # Linux C++11 GCC build  
+    - os: linux
+      compiler: gcc
+      addons: &gcc5
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['gcc-5', 'g++-5']
+      env: MATRIX_EVAL="CC='gcc-5' && CXX='g++-5'" BUILD_TYPE='Release'
+      
+    # Linux C++11 Clang build
+    - os: linux
+      compiler: clang
+      addons: &clang38
+        apt:
+          sources: ['llvm-toolchain-precise-3.8', 'ubuntu-toolchain-r-test']
+          packages: ['clang-3.8']
+      env: MATRIX_EVAL="CXX='clang++-3.8'" BUILD_TYPE='Release'
+
+    # OSX C++11 Clang Builds
+    - os: osx
+      osx_image: xcode8.3
+      compiler: clang
+      env: MATRIX_EVAL="CXX='clang++'" BUILD_TYPE='Release'
+      
+before_install:
+  - | 
+    if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
+      sudo apt-get update --option Acquire::Retries=100 --option Acquire::http::Timeout="60" # Hopefully preventing Travis to fail when installing from apt
+    fi
+  - eval "${MATRIX_EVAL}"
+  
+install:
+  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+  - mkdir -p ${DEPS_DIR} && cd ${DEPS_DIR}
+  - |
+    if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
+      # Install CMake 3.3
+      CMAKE_URL="http://www.cmake.org/files/v3.3/cmake-3.3.2-Linux-x86_64.tar.gz"
+      mkdir -p cmake && travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
+      export PATH=${DEPS_DIR}/cmake/bin:${PATH}
+    elif [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then
+      which cmake || brew install cmake
+    fi
+
+before_script:
+  - cd ${TRAVIS_BUILD_DIR}
+  - mkdir -p build && cd build
+  - cmake .. -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+
+script:
+  - make -j8
