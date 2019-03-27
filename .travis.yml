@@ -10,7 +10,7 @@ matrix:
       addons: &gcc5
         apt:
           sources: ['ubuntu-toolchain-r-test']
-          packages: ['gcc-5', 'g++-5', 'qtbase5-dev', 'qttools5-dev', 'libqt5opengl5-dev']
+          packages: ['gcc-5', 'g++-5', 'qtbase5-dev', 'qttools5-dev', 'libqt5opengl5-dev', 'libqt5x11extras5-dev']
       env: MATRIX_EVAL="CC='gcc-5' && CXX='g++-5'" BUILD_TYPE='Release'
       
     # Linux C++11 Clang build
