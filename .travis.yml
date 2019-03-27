@@ -10,7 +10,7 @@ matrix:
       addons: &gcc5
         apt:
           sources: ['ubuntu-toolchain-r-test']
-          packages: ['gcc-5', 'g++-5']
+          packages: ['gcc-5', 'g++-5', 'qtbase5-dev', 'qttools5-dev', 'libqt5opengl5-dev']
       env: MATRIX_EVAL="CC='gcc-5' && CXX='g++-5'" BUILD_TYPE='Release'
       
     # Linux C++11 Clang build
@@ -19,7 +19,7 @@ matrix:
       addons: &clang38
         apt:
           sources: ['llvm-toolchain-precise-3.8', 'ubuntu-toolchain-r-test']
-          packages: ['clang-3.8']
+          packages: ['clang-3.8', 'qtbase5-dev', 'qttools5-dev', 'libqt5opengl5-dev']
       env: MATRIX_EVAL="CXX='clang++-3.8'" BUILD_TYPE='Release'
 
     # OSX C++11 Clang Builds
@@ -34,6 +34,10 @@ before_install:
       sudo apt-get update --option Acquire::Retries=100 --option Acquire::http::Timeout="60" # Hopefully preventing Travis to fail when installing from apt
     fi
   - eval "${MATRIX_EVAL}"
+  - |
+    if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then
+      brew install qt5
+    fi
   
 install:
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
