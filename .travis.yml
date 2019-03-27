@@ -55,7 +55,13 @@ install:
 before_script:
   - cd ${TRAVIS_BUILD_DIR}
   - mkdir -p build && cd build
-  - cmake .. -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+  - |
+    if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
+      cmake .. -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+    elif [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then
+          cmake .. -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DQt5_DIR=/usr/local/opt/qt/lib/cmake/Qt5
+    fi
+
 
 script:
   - make -j8
